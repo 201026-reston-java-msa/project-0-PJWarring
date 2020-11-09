@@ -17,4 +17,41 @@ public class Account {
 		this.type = type;
 		this.status = "Pending";
 	}
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", balance=" + balance + ", type=" + type + ", status=" + status + "]";
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
