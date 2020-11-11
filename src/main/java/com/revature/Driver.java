@@ -109,6 +109,7 @@ public class Driver {
 					System.out.println("Closing account failed.");
 				}
 			}
+			break;
 		case "review pending accounts":
 			if (userAccessLevel >= 2) {
 				log.debug("User is reviewing pending accounts.");
@@ -144,41 +145,49 @@ public class Driver {
 				System.out.println("There are no more pending accounts.");
 			}
 			break;
-		case "view user":
-			log.debug("User entered view user.");
-			if (userAccessLevel >= 2) {
-				System.out.println("How would you like to select the user?\n1. Id\n2. Username");
-				String optionChosen = "";
-				while (!StringUtil.isValidInput(optionChosen, 
-						new ArrayList<String>(Arrays.asList("1", "2", "Id", "Username")), true)) {
-					System.out.print("What option would you like to choose? ");
-					optionChosen = sc.next();
-					sc.nextLine(); //clean the input field of misc characters
+		case "deposit":
+			log.debug("User entered deposit");
+			if (userAccessLevel == 3) {
+				log.debug("An admin is depositing into an account.");
+				String accountChosenStr = "";
+				while (!StringUtil.isInt(accountChosenStr)) {
+					System.out.print("Enter the id of the account you want to deposit into " + 
+							" (or type 'cancel' to cancel): ");
+					accountChosenStr = sc.nextLine();
+					if (accountChosenStr.equalsIgnoreCase("Cancel")) return true;
 				}
-				if (optionChosen.equalsIgnoreCase("1") || optionChosen.equalsIgnoreCase("Id")) {
-					log.debug("User chose to view user by id.");
-					int selectedUserId;
-					String tempUserId = "";
-					while (!StringUtil.isInt(tempUserId)) {
-						System.out.print("What is the id of the user you would like to view? ");
-						tempUserId = sc.next();
-					}
-					sc.nextLine(); //clean the input field of misc characters
-					selectedUserId = Integer.parseInt(tempUserId);
-					UserService.displayUser(selectedUserId);
-				} else if (optionChosen.equalsIgnoreCase("2") || optionChosen.equalsIgnoreCase("Username")) {
-					log.debug("User chose to view user by username.");
-					String selectedUsername = "";
-					while (selectedUsername.equals("")) {
-						System.out.print("What is the username of the user you would like to view? ");
-						selectedUsername = sc.nextLine();
-					}
-					UserService.displayUser(selectedUsername);
+				int accountChosen = Integer.parseInt(accountChosenStr);
+				double amount = -1;
+				while (amount <= 0) {
+					System.out.print("What amount would you like to deposit (must be greater than zero): ");
+					if (sc.hasNextDouble()) amount = sc.nextDouble();
 				}
-			} else if (userAccessLevel == 1) {
-				log.debug("User displayed their own info - had an access level of 1.");
-				UserService.displayUser(signedInUser.getUsername());
+				AccountService.deposit(accountChosen, amount);
+			} else if (userAccessLevel >= 1) {
+				log.debug("User is deposting into their own account - they have an access level of 1 or 2");
+				User user = userDao.getById(signedInUser.getId());
+				List<Account> accounts = user.getAccounts();
+				List<String> validInput = new ArrayList<>();
+				for (Account a : accounts) validInput.add(Integer.toString(a.getId()));
+				AccountService.displayAccountsByUserId(signedInUser.getId());
+				String accountChosenStr = "";
+				while (!StringUtil.isValidInput(accountChosenStr, validInput, true) || accountChosenStr.equalsIgnoreCase("Cancel")) {
+					System.out.print("Enter the id of the account you want to deposit into " + 
+							" (or type 'cancel' to cancel): ");
+					accountChosenStr = sc.nextLine();
+				}
+				if (accountChosenStr.equalsIgnoreCase("Cancel")) break;
+				int accountChosen = Integer.parseInt(accountChosenStr);
+				double amount = -1;
+				while (amount <= 0) {
+					System.out.print("What amount would you like to deposit (must be greater than zero): ");
+					if (sc.hasNextDouble()) amount = sc.nextDouble();
+				}
+				AccountService.deposit(accountChosen, amount);
 			}
+			break;
+		case "view user":
+			viewUser();
 			break;
 		case "view account":
 			viewAccount();
@@ -295,6 +304,46 @@ public class Driver {
 		} else if (userAccessLevel == 1) {
 			log.debug("User displayed their own account information - had an access level of 1.");
 			AccountService.displayAccountsByUsername(signedInUser.getUsername());
+		}
+	}
+	
+	public static void viewUser() {
+		Scanner sc = new Scanner(System.in);
+		User signedInUser = LoginService.getSignedInUser();
+		int userAccessLevel = LoginService.getUserAccessLevel();
+		log.debug("User entered view user.");
+		if (userAccessLevel >= 2) {
+			System.out.println("How would you like to select the user?\n1. Id\n2. Username");
+			String optionChosen = "";
+			while (!StringUtil.isValidInput(optionChosen, 
+					new ArrayList<String>(Arrays.asList("1", "2", "Id", "Username")), true)) {
+				System.out.print("What option would you like to choose? ");
+				optionChosen = sc.next();
+				sc.nextLine(); //clean the input field of misc characters
+			}
+			if (optionChosen.equalsIgnoreCase("1") || optionChosen.equalsIgnoreCase("Id")) {
+				log.debug("User chose to view user by id.");
+				int selectedUserId;
+				String tempUserId = "";
+				while (!StringUtil.isInt(tempUserId)) {
+					System.out.print("What is the id of the user you would like to view? ");
+					tempUserId = sc.next();
+				}
+				sc.nextLine(); //clean the input field of misc characters
+				selectedUserId = Integer.parseInt(tempUserId);
+				UserService.displayUser(selectedUserId);
+			} else if (optionChosen.equalsIgnoreCase("2") || optionChosen.equalsIgnoreCase("Username")) {
+				log.debug("User chose to view user by username.");
+				String selectedUsername = "";
+				while (selectedUsername.equals("")) {
+					System.out.print("What is the username of the user you would like to view? ");
+					selectedUsername = sc.nextLine();
+				}
+				UserService.displayUser(selectedUsername);
+			}
+		} else if (userAccessLevel == 1) {
+			log.debug("User displayed their own info - had an access level of 1.");
+			UserService.displayUser(signedInUser.getUsername());
 		}
 	}
 }

@@ -84,3 +84,102 @@ java.sql.SQLException: The url cannot be null
 2020-11-09 23:37:15 INFO  Driver:85 - User entered view account.
 2020-11-09 23:37:18 DEBUG Driver:103 - User chose to view user by username.
 2020-11-09 23:37:21 DEBUG UserService:75 - Displayed user by username: 
+2020-11-10 09:58:45 INFO  Driver:142 - User used unknown command.
+2020-11-10 10:50:55 INFO  Driver:51 - User root has been logged in.
+2020-11-10 10:50:57 INFO  Driver:86 - User entered view account.
+2020-11-10 10:51:05 DEBUG Driver:96 - User chose to view user by id.
+2020-11-10 10:51:09 DEBUG UserService:63 - Displayed user by id: 0
+2020-11-10 10:51:56 INFO  Driver:51 - User root has been logged in.
+2020-11-10 10:51:59 DEBUG Driver:86 - User entered view account.
+2020-11-10 10:52:00 DEBUG Driver:96 - User chose to view user by id.
+2020-11-10 10:52:02 DEBUG UserService:63 - Displayed user by id: 0
+2020-11-10 10:56:41 INFO  Driver:54 - Could not log in user - invalid username or password.
+2020-11-10 10:56:45 INFO  Driver:51 - User root has been logged in.
+2020-11-10 10:56:51 DEBUG Driver:86 - User entered view account.
+2020-11-10 10:56:54 DEBUG Driver:96 - User chose to view user by id.
+2020-11-10 10:56:57 DEBUG UserService:63 - Displayed user by id: 1
+2020-11-10 10:58:22 DEBUG Driver:144 - User used unknown command.
+2020-11-10 10:58:27 DEBUG Driver:132 - User displayed all accounts.
+2020-11-10 10:58:34 DEBUG Driver:126 - User displayed all users.
+2020-11-10 11:17:44 INFO  Driver:54 - Could not log in user - invalid username or password.
+2020-11-10 11:17:46 DEBUG Driver:86 - User entered view account.
+2020-11-10 11:17:46 DEBUG Driver:140 - User used unknown command.
+2020-11-10 11:18:05 DEBUG Driver:86 - User entered view account.
+2020-11-10 11:18:18 INFO  Driver:51 - User root has been logged in.
+2020-11-10 11:19:58 DEBUG Driver:86 - User entered view user.
+2020-11-10 11:20:00 DEBUG Driver:106 - User chose to view user by username.
+2020-11-10 11:20:00 DEBUG UserService:75 - Displayed user by username: 
+2020-11-10 11:24:01 INFO  Driver:54 - Could not log in user - invalid username or password.
+2020-11-10 11:24:06 INFO  Driver:51 - User root has been logged in.
+2020-11-10 11:24:10 DEBUG Driver:86 - User entered view user.
+2020-11-10 11:24:11 DEBUG Driver:106 - User chose to view user by username.
+2020-11-10 11:24:11 DEBUG UserService:75 - Displayed user by username: 
+2020-11-10 11:24:39 INFO  Driver:54 - Could not log in user - invalid username or password.
+2020-11-10 11:24:42 INFO  Driver:51 - User root has been logged in.
+2020-11-10 11:24:46 DEBUG Driver:86 - User entered view user.
+2020-11-10 11:24:46 DEBUG Driver:106 - User chose to view user by username.
+2020-11-10 11:24:47 DEBUG UserService:75 - Displayed user by username: 
+2020-11-10 11:25:42 DEBUG Driver:137 - User accessed help command.
+2020-11-10 11:28:16 INFO  Driver:51 - User root has been logged in.
+2020-11-10 11:32:24 DEBUG Driver:86 - User entered view user.
+2020-11-10 11:32:27 DEBUG Driver:106 - User chose to view user by username.
+2020-11-10 11:32:29 DEBUG UserService:75 - Displayed user by username: root
+2020-11-10 11:33:21 INFO  Driver:51 - User root has been logged in.
+2020-11-10 11:33:22 DEBUG Driver:137 - User accessed help command.
+2020-11-10 11:33:32 DEBUG Driver:86 - User entered view user.
+2020-11-10 11:33:32 DEBUG Driver:106 - User chose to view user by username.
+2020-11-10 11:33:36 DEBUG UserService:75 - Displayed user by username: root
+2020-11-10 11:34:31 INFO  Driver:51 - User root has been logged in.
+2020-11-10 11:34:33 DEBUG Driver:86 - User entered view user.
+2020-11-10 11:34:33 DEBUG Driver:106 - User chose to view user by username.
+2020-11-10 11:37:54 INFO  Driver:51 - User root has been logged in.
+2020-11-10 11:37:59 DEBUG Driver:86 - User entered view user.
+2020-11-10 11:38:00 DEBUG Driver:108 - User chose to view user by username.
+2020-11-10 11:38:38 DEBUG UserService:75 - Displayed user by username: root
+2020-11-10 12:29:59 INFO  Driver:51 - User root has been logged in.
+2020-11-10 12:30:06 INFO  Driver:77 - User has made a new account.
+2020-11-10 12:30:10 DEBUG Driver:85 - User entered view user.
+2020-11-10 12:30:11 DEBUG Driver:96 - User chose to view user by id.
+2020-11-10 12:30:12 DEBUG UserService:63 - Displayed user by id: 1
+2020-11-10 12:43:56 DEBUG Driver:127 - User displayed all users.
+2020-11-10 20:00:19 INFO  Driver:54 - User root has been logged in.
+2020-11-10 20:00:35 DEBUG Driver:89 - User is reviewing pending accounts.
+2020-11-10 20:03:22 INFO  Driver:54 - User root has been logged in.
+2020-11-10 20:04:02 DEBUG Driver:89 - User is reviewing pending accounts.
+2020-11-10 20:06:09 INFO  Driver:54 - User root has been logged in.
+2020-11-10 20:13:10 DEBUG Driver:89 - User is reviewing pending accounts.
+2020-11-10 20:13:16 DEBUG Driver:125 - User entered view user.
+2020-11-10 20:13:18 DEBUG Driver:136 - User chose to view user by id.
+2020-11-10 20:13:19 DEBUG UserService:65 - Displayed user by id: 1
+2020-11-10 21:24:15 INFO  Driver:56 - User root has been logged in.
+2020-11-10 21:24:38 DEBUG Driver:91 - User is closing an account.
+2020-11-10 21:24:42 INFO  Driver:105 - Closed account at id: 4
+2020-11-10 21:24:42 DEBUG Driver:114 - User is reviewing pending accounts.
+2020-11-10 21:25:02 DEBUG Driver:194 - User displayed all accounts.
+2020-11-10 21:25:06 DEBUG Driver:148 - User entered view user.
+2020-11-10 21:25:07 DEBUG Driver:159 - User chose to view user by id.
+2020-11-10 21:25:08 DEBUG UserService:65 - Displayed user by id: 1
+2020-11-10 23:56:41 INFO  Driver:56 - User root has been logged in.
+2020-11-10 23:56:49 INFO  Driver:82 - User has made a new account.
+2020-11-11 00:02:44 DEBUG Driver:149 - User entered deposit
+2020-11-11 00:02:44 DEBUG Driver:151 - An admin is depositing into an account.
+2020-11-11 00:03:23 INFO  AccountService:65 - Depositing 1.0 into account at the id 1 this changes the balance from 0.0 to 1.0
+2020-11-11 00:04:47 INFO  Driver:56 - User root has been logged in.
+2020-11-11 00:04:51 DEBUG Driver:204 - User displayed all accounts.
+2020-11-11 00:06:55 INFO  Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 00:06:55 DEBUG Driver:216 - User used unknown command.
+2020-11-11 00:06:59 INFO  Driver:56 - User root has been logged in.
+2020-11-11 00:07:24 DEBUG Driver:204 - User displayed all accounts.
+2020-11-11 00:07:32 DEBUG Driver:149 - User entered deposit
+2020-11-11 00:07:32 DEBUG Driver:151 - An admin is depositing into an account.
+2020-11-11 00:08:25 INFO  Driver:56 - User root has been logged in.
+2020-11-11 00:08:29 DEBUG Driver:149 - User entered deposit
+2020-11-11 00:08:29 DEBUG Driver:151 - An admin is depositing into an account.
+2020-11-11 00:08:33 DEBUG Driver:149 - User entered deposit
+2020-11-11 00:08:33 DEBUG Driver:151 - An admin is depositing into an account.
+2020-11-11 00:08:39 INFO  AccountService:65 - Depositing $10.0 into account at the id 5 this changes the balance from $0.0 to $10.0
+2020-11-11 00:08:47 DEBUG Driver:203 - User displayed all accounts.
+2020-11-11 00:08:56 DEBUG Driver:115 - User is reviewing pending accounts.
+2020-11-11 00:09:18 DEBUG Driver:215 - User used unknown command.
+2020-11-11 00:09:24 DEBUG Driver:115 - User is reviewing pending accounts.
+2020-11-11 00:09:31 DEBUG Driver:203 - User displayed all accounts.

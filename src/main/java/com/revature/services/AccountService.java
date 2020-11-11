@@ -58,6 +58,74 @@ public class AccountService {
 		return userAccountDao.create(LoginService.getSignedInUser().getId(), newAccountId);
 	}
 	
+	public static boolean deposit(int accountid, double amount) {
+		if (isOpenAccount(accountid)) {
+			AccountDaoImpl accountDao = new AccountDaoImpl();
+			Account account = accountDao.getById(accountid);
+			double newBalance = account.getBalance() + amount;
+			log.info("Depositing $" + amount + " into account at the id " + accountid +
+					" this changes the balance from $" + account.getBalance() + " to $" + newBalance);
+			account.setBalance(newBalance);
+			return accountDao.update(account);
+		} else {
+			log.debug("Can not deposit into accounts that are not open.");
+			System.out.println("You can not deposit into accounts that are not open.");
+			return false;
+		}
+	}
+	
+	public static boolean withdraw(int accountid, double amount) {
+		if (isOpenAccount(accountid)) {
+			AccountDaoImpl accountDao = new AccountDaoImpl();
+			Account account = accountDao.getById(accountid);
+			if (account.getBalance() - amount < 0) {
+				log.info("Withdraw from account at id " + accountid + " because it would result " + 
+						"in an overdraft (withdraw amount: $" + amount + ", account balance: $" + 
+						account.getBalance());
+				System.out.println("You can not overdraw from accounts.");
+				return false;
+			}
+			double newBalance = account.getBalance() - amount;
+			log.info("Withdrawing $" + amount + " from account at the id " + accountid +
+					" this changes the balance from $" + account.getBalance() + " to $" + newBalance);
+			account.setBalance(newBalance);
+			return accountDao.update(account);
+		} else {
+			log.debug("Can not withdraw from accounts that are not open.");
+			System.out.println("You can not withdraw from accounts that are not open.");
+			return false;
+		}
+	}
+	
+	public static boolean transfer(int senderAccountId, int recieverAccountId, double amount) {
+		if (isOpenAccount(senderAccountId) && isOpenAccount(recieverAccountId)) {	
+			log.info("Begining transfer of $" + amount + " from $" + senderAccountId + " to $" + recieverAccountId);
+			if (withdraw(senderAccountId, amount)) {
+				if (deposit(recieverAccountId, amount)) {
+					log.info("Transfer successful.");
+					return true;
+				} else {
+					log.info("Transfer failed."); //this dbg message is so simple because deposit should log its own failure states
+					log.debug("Transfer failed at deposit stage.");
+					return false;
+				}
+			} else {
+				log.info("Transfer failed."); //this dbg message is so simple because withdraw should log its own failure states
+				log.debug("Transfer failed at withdraw stage.");
+				return false;
+			}
+		} else {
+			log.debug("Can not transfer to or from accounts that are not open.");
+			System.out.println("You can not transfer to or from accounts that are not open.");
+			return false;
+		}
+	}
+	
+	public static boolean isOpenAccount(int accountid) {
+		AccountDaoImpl accountDao = new AccountDaoImpl();
+		return accountDao.getById(accountid).getStatus().equals("Open");
+	}
+	
 	public static void displayAccount(int accountid) {
 		AccountDaoImpl accountDao = new AccountDaoImpl();
 		Account account = accountDao.getById(accountid);

@@ -124,7 +124,7 @@ public class AccountDaoImpl implements GenericDao<Account>{
 	public List<Account> getAll() {
 		try {
 			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
-					"select * from project0.accounts;");
+					"select * from project0.accounts order by id;");
 			
 			ResultSet rs = ps.executeQuery();
 			Account account = new Account();
