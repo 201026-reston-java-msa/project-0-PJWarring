@@ -43,6 +43,13 @@ public class User {
 		sb.append("]");
 		return sb.toString();
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || other.getClass() != User.class) return false;
+		User otherUser = (User) other;
+		return this.id == otherUser.getId();
+	}
 
 	public int getId() {
 		return id;

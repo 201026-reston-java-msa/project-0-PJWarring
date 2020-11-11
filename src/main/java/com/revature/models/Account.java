@@ -8,19 +8,19 @@ public class Account {
 	private String status;
 	
 	public Account() {
-		this(0.0, "Savings");
+		this(0.0, "Savings", "Pending");
 	}
 	
-	public Account(double balance, String type) {
+	public Account(double balance, String type, String status) {
 		this.id = 0;
 		this.balance = balance;
 		this.type = type;
-		this.status = "Pending";
+		this.status = status;
 	}
 
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", balance=" + balance + ", type=" + type + ", status=" + status + "]";
+		return "[id=" + id + ", balance=" + balance + ", type=" + type + ", status=" + status + "] ";
 	}
 
 	public int getId() {

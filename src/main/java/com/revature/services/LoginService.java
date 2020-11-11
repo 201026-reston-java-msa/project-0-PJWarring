@@ -11,12 +11,14 @@ public class LoginService {
 		//if username/password is valid, set signedInUser, return true
 		
 		UserDaoImpl userDao = new UserDaoImpl();
-		
 		//get user by username, compare password, set password to null
 		User tempUser = userDao.getByUsername(username);
-		System.out.println(tempUser);
-		if (tempUser.getPassword() != null && tempUser.getPassword().equals(password)) { //user credentials are valid
+		System.out.println(tempUser); //DBG remove this
+		if (tempUser != null && tempUser.getPassword() != null && tempUser.getPassword().equals(password)) { //user credentials are valid
+			//sets users password and accounts to null for privacy reasons
 			tempUser.setPassword("");
+			tempUser.setAccounts(null);
+			
 			signedInUser = tempUser;
 			return true;
 		} else { //user credentials are invalid

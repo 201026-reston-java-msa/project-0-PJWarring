@@ -15,13 +15,13 @@ import com.revature.utils.ConnectionFactory;
 
 public class UserDaoImpl implements GenericDao<User> {
 
-	private static Logger log = Logger.getLogger(ConnectionFactory.class);
+	private static Logger log = Logger.getLogger(UserDaoImpl.class);
 
 	@Override
 	public int create(User t) {
 		try {
 			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
-					"insert into users (username, password, first_name, last_name, email, role) "
+					"insert into project0.users (username, password, first_name, last_name, email, role) "
 					+ "values (?, ?, ?, ?, ?, ?)");
 			ps.setString(1, t.getUsername());
 			ps.setString(2, t.getPassword());
@@ -45,13 +45,12 @@ public class UserDaoImpl implements GenericDao<User> {
 		try {
 			PreparedStatement ps = 
 					ConnectionFactory.getConnection().prepareStatement(
-							"select * from users as u "
-							+ "left join users_accounts as ua on u.id = ua.userid "
-							+ "left join accounts as a on ua.accountid = a.id "
+							"select * from project0.users as u "
+							+ "left join project0.users_accounts as ua on u.id = ua.userid "
+							+ "left join project0.accounts as a on ua.accountid = a.id "
 							+ "where u.id = ?;");
 			ps.setInt(1, id);
 			
-			// We use executeQuery because it is a DQL command.
 			ResultSet rs = ps.executeQuery();
 			User user = new User();
 			Account account = new Account();
@@ -76,7 +75,6 @@ public class UserDaoImpl implements GenericDao<User> {
 			}
 			
 			user.setAccounts(accounts);
-			System.out.println(user);
 			return user;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -91,9 +89,9 @@ public class UserDaoImpl implements GenericDao<User> {
 		try {
 			PreparedStatement ps = 
 					ConnectionFactory.getConnection().prepareStatement(
-							"select * from users as u "
-							+ "left join users_accounts as ua on u.id = ua.userid "
-							+ "left join accounts as a on ua.accountid = a.id "
+							"select * from project0.users as u "
+							+ "left join project0.users_accounts as ua on u.id = ua.userid "
+							+ "left join project0.accounts as a on ua.accountid = a.id "
 							+ "where u.username = ?;");
 			ps.setString(1, username);
 			
@@ -121,7 +119,50 @@ public class UserDaoImpl implements GenericDao<User> {
 			}
 			
 			user.setAccounts(accounts);
-			System.out.println(user);
+			return user;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// There were 0 records returned
+		return null;
+	}
+	
+	public User getByAccountId(int id) {
+		try {
+			PreparedStatement ps = 
+					ConnectionFactory.getConnection().prepareStatement(
+							"select * from project0.users as u "
+							+ "left join project0.users_accounts as ua on u.id = ua.userid "
+							+ "left join project0.accounts as a on ua.accountid = a.id "
+							+ "where a.id = ?;");
+			ps.setInt(1, id);
+			
+			ResultSet rs = ps.executeQuery();
+			User user = new User();
+			Account account = new Account();
+			List<Account> accounts = new ArrayList<Account>();
+			if (rs.next()) {
+				user.setId(rs.getInt("id"));
+				user.setUsername(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
+				user.setFirstName(rs.getString("first_name"));
+				user.setLastName(rs.getString("last_name"));
+				user.setEmail(rs.getString("email"));
+				user.setRole(rs.getString("role"));
+				do {
+					account = new Account();
+					account.setId(rs.getInt("accountId"));
+					account.setStatus(rs.getString("status"));
+					account.setType(rs.getString("type"));
+					account.setBalance(rs.getDouble("balance"));
+					accounts.add(account);
+					if (account.getId() == 0) {accounts=null;}
+				} while (rs.next());
+			}
+			
+			user.setAccounts(accounts);
 			return user;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -149,14 +190,13 @@ public class UserDaoImpl implements GenericDao<User> {
 		try {
 			PreparedStatement ps = 
 					ConnectionFactory.getConnection().prepareStatement(
-							"select * from users as u "
-							+ "left join users_accounts as ua on u.id = ua.userid "
-							+ "left join accounts as a on ua.accountid = a.id "
+							"select * from project0.users as u "
+							+ "left join project0.users_accounts as ua on u.id = ua.userid "
+							+ "left join project0.accounts as a on ua.accountid = a.id "
 							+ "order by u.id;");
 			
 			// We use executeQuery because it is a DQL command.
 			ResultSet rs = ps.executeQuery();
-	
 			User prevUser = null;
 			List<User> users = new ArrayList<User>();
 			List<Account> accounts = new ArrayList<Account>();
@@ -189,9 +229,8 @@ public class UserDaoImpl implements GenericDao<User> {
 				else users.get(prevUser.getId()-1).setAccounts(accounts);
 				//save the current user
 				prevUser = user;
-				
-				return users;
-			}
+			}	
+			return users;
 		} catch (SQLException e) {
 			//log crash here
 		}

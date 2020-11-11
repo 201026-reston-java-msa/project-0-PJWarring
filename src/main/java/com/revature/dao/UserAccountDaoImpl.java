@@ -12,7 +12,7 @@ public class UserAccountDaoImpl {
 	public boolean create(int userId, int accountId) {
 		try {
 			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
-					"insert into users_accounts (userid, accountid) "
+					"insert into project0.users_accounts (userid, accountid) "
 					+ "values (?, ?)");
 			ps.setInt(1, userId);
 			ps.setInt(2, accountId);
@@ -30,7 +30,7 @@ public class UserAccountDaoImpl {
 	public boolean deleteByUser(int userId) {
 		try {
 			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
-					"delete from users_accounts where userid = ?");
+					"delete from project0.users_accounts where userid = ?");
 			ps.setInt(1, userId);
 			
 			ps.executeUpdate();
@@ -46,7 +46,7 @@ public class UserAccountDaoImpl {
 	public boolean deleteByAccount(int accountId) {
 		try {
 			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
-					"delete from users_accounts where userid = ?");
+					"delete from project0.users_accounts where userid = ?");
 			ps.setInt(1, accountId);
 			
 			ps.executeUpdate();

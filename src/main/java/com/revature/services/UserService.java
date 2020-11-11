@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
+import com.revature.Driver;
 import com.revature.dao.UserDaoImpl;
 import com.revature.models.Account;
 import com.revature.models.User;
 
 public class UserService {
 
+	private static Logger log = Logger.getLogger(UserService.class);
+	
 	public static boolean signup() {
 		UserDaoImpl userDao = new UserDaoImpl();
 		Scanner sc = new Scanner(System.in);
@@ -47,17 +52,35 @@ public class UserService {
 		if (userList == null) {System.out.println("No users found"); return;}
 		
 		for (User u : userList) {
+			u.setPassword("");
 			System.out.println(u);
 		}
 	}
 	
 	public static void displayUser(int userId) {
 		UserDaoImpl userDao = new UserDaoImpl();
-		System.out.println(userDao.getById(userId));
+		User user = userDao.getById(userId);
+		if (user != null) {
+			user.setPassword("");
+			log.debug("Displayed user by id: " + userId);
+			System.out.println(user);
+		}
+		else {
+			log.debug("No user was found at id: " + userId);
+			System.out.println("No user found.");
+		}
 	}
 	public static void displayUser(String username) {
 		UserDaoImpl userDao = new UserDaoImpl();
-		System.out.println(userDao.getByUsername(username));
+		User user = userDao.getByUsername(username);
+		if (user != null) {
+			user.setPassword("");
+			log.debug("Displayed user by username: " + username);
+			System.out.println(user);
+		} else {
+			log.debug("No user was found at username: " + username);
+			System.out.println("No user found.");
+		}
 	}
 	
 	public static boolean isValidUsername(String username) {

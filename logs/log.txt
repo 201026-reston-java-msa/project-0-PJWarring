@@ -1,1 +1,86 @@
 2020-11-08 16:34:19 INFO  Driver:52 - Could not log in user - invalid username or password.
+2020-11-09 11:11:35 INFO  Driver:52 - Could not log in user - invalid username or password.
+2020-11-09 11:13:07 INFO  Driver:52 - Could not log in user - invalid username or password.
+2020-11-09 11:47:44 INFO  Driver:52 - Could not log in user - invalid username or password.
+2020-11-09 11:53:31 WARN  ConnectionFactory:40 - Unable to obtain connection to database
+java.sql.SQLException: The url cannot be null
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:660)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at com.revature.utils.ConnectionFactory.getConnection(ConnectionFactory.java:34)
+	at com.revature.dao.UserDaoImpl.getByUsername(UserDaoImpl.java:93)
+	at com.revature.services.LoginService.login(LoginService.java:15)
+	at com.revature.Driver.parseInput(Driver.java:48)
+	at com.revature.Driver.main(Driver.java:29)
+2020-11-09 11:54:04 INFO  Driver:52 - Could not log in user - invalid username or password.
+2020-11-09 12:07:14 INFO  Driver:53 - Could not log in user - invalid username or password.
+2020-11-09 12:13:27 INFO  Driver:50 - User root has been logged in.
+2020-11-09 12:13:56 INFO  Driver:50 - User root has been logged in.
+2020-11-09 12:14:02 INFO  Driver:109 - User used unknown command.
+2020-11-09 12:14:49 INFO  Driver:109 - User used unknown command.
+2020-11-09 12:48:45 INFO  Driver:50 - User root has been logged in.
+2020-11-09 14:24:51 INFO  Driver:50 - User root has been logged in.
+2020-11-09 14:54:58 INFO  Driver:50 - User root has been logged in.
+2020-11-09 15:12:44 INFO  Driver:50 - User root has been logged in.
+2020-11-09 15:17:43 INFO  Driver:50 - User root has been logged in.
+2020-11-09 15:22:10 INFO  Driver:50 - User root has been logged in.
+2020-11-09 15:22:37 INFO  Driver:50 - User root has been logged in.
+2020-11-09 15:29:08 INFO  Driver:53 - Could not log in user - invalid username or password.
+2020-11-09 15:29:21 INFO  Driver:50 - User root has been logged in.
+2020-11-09 15:31:19 INFO  Driver:50 - User root has been logged in.
+2020-11-09 15:32:30 INFO  Driver:50 - User root has been logged in.
+2020-11-09 16:16:41 INFO  Driver:50 - User root has been logged in.
+2020-11-09 16:17:15 INFO  Driver:53 - Could not log in user - invalid username or password.
+2020-11-09 16:17:19 INFO  Driver:50 - User root has been logged in.
+2020-11-09 18:29:24 INFO  Driver:51 - User root has been logged in.
+2020-11-09 18:29:31 WARN  ConnectionFactory:41 - SQLException org.postgresql.util.PSQLException: ERROR: column "statusid" of relation "accounts" does not exist
+  Position: 41
+2020-11-09 18:29:31 INFO  Driver:80 - Create account failed.
+2020-11-09 18:30:04 INFO  Driver:51 - User root has been logged in.
+2020-11-09 18:30:08 INFO  Driver:80 - Create account failed.
+2020-11-09 18:40:54 INFO  Driver:51 - User root has been logged in.
+2020-11-09 18:40:56 INFO  Driver:112 - User used unknown command.
+2020-11-09 18:41:01 INFO  Driver:85 - User entered view account.
+2020-11-09 18:41:40 INFO  Driver:112 - User used unknown command.
+2020-11-09 22:35:29 INFO  Driver:131 - User used unknown command.
+2020-11-09 22:35:36 INFO  Driver:54 - Could not log in user - invalid username or password.
+2020-11-09 22:35:42 INFO  Driver:51 - User root has been logged in.
+2020-11-09 22:35:47 DEBUG Driver:120 - User displayed all accounts.
+2020-11-09 22:35:47 WARN  ConnectionFactory:100 - SQLException org.postgresql.util.PSQLException: The column name accountId was not found in this ResultSet.
+2020-11-09 22:35:47 INFO  Driver:124 - User accessed help command.
+2020-11-09 22:46:46 INFO  Driver:51 - User root has been logged in.
+2020-11-09 22:46:50 DEBUG Driver:120 - User displayed all accounts.
+2020-11-09 22:47:18 INFO  Driver:51 - User root has been logged in.
+2020-11-09 22:47:19 INFO  Driver:132 - User used unknown command.
+2020-11-09 22:47:22 DEBUG Driver:120 - User displayed all accounts.
+2020-11-09 22:48:04 INFO  Driver:85 - User entered view account.
+2020-11-09 22:48:07 INFO  Driver:132 - User used unknown command.
+2020-11-09 22:48:30 INFO  Driver:85 - User entered view account.
+2020-11-09 22:49:03 INFO  Driver:51 - User root has been logged in.
+2020-11-09 22:49:05 INFO  Driver:85 - User entered view account.
+2020-11-09 22:49:32 INFO  Driver:51 - User root has been logged in.
+2020-11-09 22:49:36 INFO  Driver:85 - User entered view account.
+2020-11-09 22:52:54 INFO  Driver:51 - User root has been logged in.
+2020-11-09 22:52:58 INFO  Driver:85 - User entered view account.
+2020-11-09 22:53:00 DEBUG Driver:102 - User chose to view user by id.
+2020-11-09 22:53:00 DEBUG UserService:75 - Displayed user by username: 
+2020-11-09 22:53:06 INFO  Driver:132 - User used unknown command.
+2020-11-09 22:53:32 INFO  Driver:54 - Could not log in user - invalid username or password.
+2020-11-09 22:53:39 INFO  Driver:54 - Could not log in user - invalid username or password.
+2020-11-09 22:53:47 INFO  Driver:51 - User root has been logged in.
+2020-11-09 22:53:52 INFO  Driver:85 - User entered view account.
+2020-11-09 22:53:53 DEBUG Driver:102 - User chose to view user by id.
+2020-11-09 22:53:53 DEBUG UserService:75 - Displayed user by username: 
+2020-11-09 22:56:32 INFO  Driver:51 - User root has been logged in.
+2020-11-09 22:56:36 INFO  Driver:85 - User entered view account.
+2020-11-09 22:56:44 DEBUG Driver:103 - User chose to view user by username.
+2020-11-09 22:56:44 DEBUG UserService:75 - Displayed user by username: 
+2020-11-09 23:01:56 INFO  Driver:51 - User root has been logged in.
+2020-11-09 23:27:41 INFO  Driver:85 - User entered view account.
+2020-11-09 23:27:43 DEBUG Driver:95 - User chose to view user by id.
+2020-11-09 23:37:02 INFO  Driver:51 - User root has been logged in.
+2020-11-09 23:37:06 INFO  Driver:85 - User entered view account.
+2020-11-09 23:37:07 DEBUG Driver:95 - User chose to view user by id.
+2020-11-09 23:37:11 DEBUG UserService:63 - Displayed user by id: 0
+2020-11-09 23:37:15 INFO  Driver:85 - User entered view account.
+2020-11-09 23:37:18 DEBUG Driver:103 - User chose to view user by username.
+2020-11-09 23:37:21 DEBUG UserService:75 - Displayed user by username: 
