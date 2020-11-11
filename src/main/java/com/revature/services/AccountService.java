@@ -78,8 +78,8 @@ public class AccountService {
 		if (isOpenAccount(accountid)) {
 			AccountDaoImpl accountDao = new AccountDaoImpl();
 			Account account = accountDao.getById(accountid);
-			if (account.getBalance() - amount < 0) {
-				log.info("Withdraw from account at id " + accountid + " because it would result " + 
+			if (!isValidWithdrawAmount(accountid, amount)) {
+				log.info("Could not withdraw from account at id " + accountid + " because it would result " + 
 						"in an overdraft (withdraw amount: $" + amount + ", account balance: $" + 
 						account.getBalance());
 				System.out.println("You can not overdraw from accounts.");
@@ -99,7 +99,7 @@ public class AccountService {
 	
 	public static boolean transfer(int senderAccountId, int recieverAccountId, double amount) {
 		if (isOpenAccount(senderAccountId) && isOpenAccount(recieverAccountId)) {	
-			log.info("Begining transfer of $" + amount + " from $" + senderAccountId + " to $" + recieverAccountId);
+			log.info("Begining transfer of $" + amount + " from id " + senderAccountId + " to id " + recieverAccountId);
 			if (withdraw(senderAccountId, amount)) {
 				if (deposit(recieverAccountId, amount)) {
 					log.info("Transfer successful.");
@@ -121,9 +121,24 @@ public class AccountService {
 		}
 	}
 	
+	public static boolean isValidWithdrawAmount(int accountid, double amount) {
+		AccountDaoImpl accountDao = new AccountDaoImpl();
+		Account account = accountDao.getById(accountid);
+		if (account.getBalance() - amount >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public static boolean isOpenAccount(int accountid) {
 		AccountDaoImpl accountDao = new AccountDaoImpl();
 		return accountDao.getById(accountid).getStatus().equals("Open");
+	}
+	
+	public static boolean hasFunds(int accountid) {
+		AccountDaoImpl accountDao = new AccountDaoImpl();
+		return accountDao.getById(accountid).getBalance() > 0;
 	}
 	
 	public static void displayAccount(int accountid) {

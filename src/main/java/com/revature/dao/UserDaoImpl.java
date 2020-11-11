@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +20,8 @@ public class UserDaoImpl implements GenericDao<User> {
 
 	@Override
 	public int create(User t) {
-		try {
-			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 					"insert into project0.users (username, password, first_name, last_name, email, role) "
 					+ "values (?, ?, ?, ?, ?, ?)");
 			ps.setString(1, t.getUsername());
@@ -42,9 +43,8 @@ public class UserDaoImpl implements GenericDao<User> {
 
 	@Override
 	public User getById(int id) {
-		try {
-			PreparedStatement ps = 
-					ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 							"select * from project0.users as u "
 							+ "left join project0.users_accounts as ua on u.id = ua.userid "
 							+ "left join project0.accounts as a on ua.accountid = a.id "
@@ -86,9 +86,8 @@ public class UserDaoImpl implements GenericDao<User> {
 	}
 	
 	public User getByUsername(String username) {
-		try {
-			PreparedStatement ps = 
-					ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 							"select * from project0.users as u "
 							+ "left join project0.users_accounts as ua on u.id = ua.userid "
 							+ "left join project0.accounts as a on ua.accountid = a.id "
@@ -130,9 +129,8 @@ public class UserDaoImpl implements GenericDao<User> {
 	}
 	
 	public User getByAccountId(int id) {
-		try {
-			PreparedStatement ps = 
-					ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 							"select * from project0.users as u "
 							+ "left join project0.users_accounts as ua on u.id = ua.userid "
 							+ "left join project0.accounts as a on ua.accountid = a.id "
@@ -175,21 +173,53 @@ public class UserDaoImpl implements GenericDao<User> {
 
 	@Override
 	public boolean update(User t) {
-		// TODO Auto-generated method stub
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement("UPDATE project0.accounts"
+					+ " SET username = ?, password = ?, firstName = ?,"
+					+ " lastName = ?, email = ?, role = ?"
+					+ " WHERE id = ?;");
+			
+			//Get info
+			ps.setString(1, t.getUsername());
+			ps.setString(2, t.getPassword());
+			ps.setString(3, t.getFirstName());
+			ps.setString(1, t.getLastName());
+			ps.setString(1, t.getEmail());
+			ps.setString(1, t.getRole());
+			//What account do we update
+			ps.setInt(4, t.getId());
+			
+			// We use executeUpdate because it is a DML command
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public boolean delete(User t) {
-		// TODO Auto-generated method stub
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
+					"delete from project0.users where users.id = ?");
+			ps.setInt(1, t.getId());
+			
+			ps.executeUpdate();
+			
+			return true;
+		} catch (SQLException e) {
+			//log the warning
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public List<User> getAll() {
-		try {
-			PreparedStatement ps = 
-					ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 							"select * from project0.users as u "
 							+ "left join project0.users_accounts as ua on u.id = ua.userid "
 							+ "left join project0.accounts as a on ua.accountid = a.id "

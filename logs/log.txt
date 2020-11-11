@@ -183,3 +183,121 @@ java.sql.SQLException: The url cannot be null
 2020-11-11 00:09:18 DEBUG Driver:215 - User used unknown command.
 2020-11-11 00:09:24 DEBUG Driver:115 - User is reviewing pending accounts.
 2020-11-11 00:09:31 DEBUG Driver:203 - User displayed all accounts.
+2020-11-11 00:18:35 INFO  Driver:56 - User root has been logged in.
+2020-11-11 00:18:42 DEBUG Driver:203 - User displayed all accounts.
+2020-11-11 00:18:48 INFO  Driver:82 - User has made a new account.
+2020-11-11 00:18:53 DEBUG Driver:215 - User used unknown command.
+2020-11-11 00:19:01 DEBUG Driver:215 - User used unknown command.
+2020-11-11 00:19:15 DEBUG Driver:215 - User used unknown command.
+2020-11-11 00:19:25 DEBUG Driver:203 - User displayed all accounts.
+2020-11-11 00:19:29 DEBUG Driver:149 - User entered deposit
+2020-11-11 00:19:29 DEBUG Driver:151 - An admin is depositing into an account.
+2020-11-11 00:19:34 DEBUG AccountService:71 - Can not deposit into accounts that are not open.
+2020-11-11 00:47:38 INFO  Driver:56 - User root has been logged in.
+2020-11-11 00:47:43 DEBUG Driver:168 - User displayed all accounts.
+2020-11-11 00:47:55 DEBUG Driver:115 - User is reviewing pending accounts.
+2020-11-11 00:48:00 DEBUG Driver:320 - User entered deposit
+2020-11-11 00:48:00 DEBUG Driver:322 - An admin is depositing into an account.
+2020-11-11 00:48:12 INFO  AccountService:66 - Depositing $100.0 into account at the id 4 this changes the balance from $0.0 to $100.0
+2020-11-11 00:49:18 DEBUG Driver:168 - User displayed all accounts.
+2020-11-11 00:49:26 DEBUG Driver:214 - User entered view account.
+2020-11-11 00:49:57 DEBUG Driver:260 - User chose to view user accounts by username.
+2020-11-11 00:51:48 DEBUG Driver:377 - User entered withdraw
+2020-11-11 00:51:48 DEBUG Driver:379 - An admin is withrawing from an account.
+2020-11-11 00:51:52 INFO  AccountService:82 - Could not withdraw from account at id 4 because it would result in an overdraft (withdraw amount: $-1.0, account balance: $100.0
+2020-11-11 00:53:33 INFO  Driver:56 - User root has been logged in.
+2020-11-11 00:53:34 DEBUG Driver:379 - User entered withdraw
+2020-11-11 00:53:34 DEBUG Driver:381 - An admin is withrawing from an account.
+2020-11-11 00:53:38 INFO  AccountService:82 - Could not withdraw from account at id 4 because it would result in an overdraft (withdraw amount: $-1.0, account balance: $100.0
+2020-11-11 00:54:56 INFO  Driver:56 - User root has been logged in.
+2020-11-11 00:54:59 DEBUG Driver:379 - User entered withdraw
+2020-11-11 00:54:59 DEBUG Driver:381 - An admin is withrawing from an account.
+2020-11-11 00:55:01 INFO  AccountService:82 - Could not withdraw from account at id 4 because it would result in an overdraft (withdraw amount: $-1.0, account balance: $100.0
+2020-11-11 00:55:48 INFO  Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 00:55:54 INFO  Driver:56 - User root has been logged in.
+2020-11-11 00:55:59 DEBUG Driver:379 - User entered withdraw
+2020-11-11 00:55:59 DEBUG Driver:381 - An admin is withrawing from an account.
+2020-11-11 00:56:00 INFO  AccountService:82 - Could not withdraw from account at id 4 because it would result in an overdraft (withdraw amount: $-1.0, account balance: $100.0
+2020-11-11 00:56:57 INFO  Driver:56 - User root has been logged in.
+2020-11-11 00:57:00 DEBUG Driver:168 - User displayed all accounts.
+2020-11-11 00:57:07 DEBUG Driver:379 - User entered withdraw
+2020-11-11 00:57:07 DEBUG Driver:381 - An admin is withrawing from an account.
+2020-11-11 00:57:08 WARN  ConnectionFactory:32 - Unable to obtain connection to database
+org.postgresql.util.PSQLException: FATAL: sorry, too many clients already
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:613)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:161)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:213)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:225)
+	at org.postgresql.Driver.makeConnection(Driver.java:465)
+	at org.postgresql.Driver.connect(Driver.java:264)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+	at com.revature.utils.ConnectionFactory.getConnection(ConnectionFactory.java:25)
+	at com.revature.dao.AccountDaoImpl.getById(AccountDaoImpl.java:49)
+	at com.revature.services.AccountService.isOpenAccount(AccountService.java:136)
+	at com.revature.Driver.withdraw(Driver.java:390)
+	at com.revature.Driver.parseInput(Driver.java:152)
+	at com.revature.Driver.main(Driver.java:34)
+2020-11-11 01:06:21 INFO  Driver:56 - User root has been logged in.
+2020-11-11 01:06:25 DEBUG Driver:168 - User displayed all accounts.
+2020-11-11 01:06:48 DEBUG Driver:379 - User entered withdraw
+2020-11-11 01:06:48 DEBUG Driver:381 - An admin is withrawing from an account.
+2020-11-11 01:08:11 INFO  AccountService:82 - Could not withdraw from account at id 4 because it would result in an overdraft (withdraw amount: $99.999, account balance: $100.0
+2020-11-11 01:08:22 DEBUG Driver:379 - User entered withdraw
+2020-11-11 01:08:22 DEBUG Driver:381 - An admin is withrawing from an account.
+2020-11-11 01:08:27 INFO  AccountService:82 - Could not withdraw from account at id 4 because it would result in an overdraft (withdraw amount: $99.0, account balance: $100.0
+2020-11-11 01:13:14 INFO  Driver:56 - User root has been logged in.
+2020-11-11 01:13:18 DEBUG Driver:168 - User displayed all accounts.
+2020-11-11 01:13:22 DEBUG Driver:379 - User entered withdraw
+2020-11-11 01:13:22 DEBUG Driver:381 - An admin is withrawing from an account.
+2020-11-11 01:13:25 DEBUG AccountService:144 - Displayed account at id: 4
+2020-11-11 01:13:30 INFO  AccountService:82 - Could not withdraw from account at id 4 because it would result in an overdraft (withdraw amount: $55.0, account balance: $100.0
+2020-11-11 01:14:55 INFO  Driver:56 - User root has been logged in.
+2020-11-11 01:14:58 DEBUG Driver:379 - User entered withdraw
+2020-11-11 01:14:58 DEBUG Driver:381 - An admin is withrawing from an account.
+2020-11-11 01:14:59 DEBUG AccountService:143 - Displayed account at id: 4
+2020-11-11 01:15:04 INFO  AccountService:89 - Withdrawing $99.999 from account at the id 4 this changes the balance from $100.0 to $0.0010000000000047748
+2020-11-11 01:18:00 INFO  Driver:56 - User root has been logged in.
+2020-11-11 01:18:05 INFO  Driver:82 - User has made a new account.
+2020-11-11 01:18:10 DEBUG Driver:115 - User is reviewing pending accounts.
+2020-11-11 01:18:55 DEBUG Driver:180 - User used unknown command.
+2020-11-11 01:19:05 DEBUG Driver:214 - User entered view account.
+2020-11-11 01:19:06 DEBUG Driver:226 - User chose to view account by id.
+2020-11-11 01:19:08 DEBUG AccountService:143 - Displayed account at id: 5
+2020-11-11 01:19:14 DEBUG Driver:320 - User entered deposit
+2020-11-11 01:19:14 DEBUG Driver:322 - An admin is depositing into an account.
+2020-11-11 01:19:18 INFO  AccountService:66 - Depositing $100.0 into account at the id 5 this changes the balance from $0.0 to $100.0
+2020-11-11 01:19:27 DEBUG Driver:168 - User displayed all accounts.
+2020-11-11 01:19:33 DEBUG Driver:377 - User entered withdraw
+2020-11-11 01:19:33 DEBUG Driver:379 - An admin is withrawing from an account.
+2020-11-11 01:19:36 DEBUG AccountService:143 - Displayed account at id: 5
+2020-11-11 01:20:06 INFO  AccountService:89 - Withdrawing $20.0 from account at the id 5 this changes the balance from $100.0 to $80.0
+2020-11-11 01:20:13 DEBUG Driver:377 - User entered withdraw
+2020-11-11 01:20:13 DEBUG Driver:379 - An admin is withrawing from an account.
+2020-11-11 01:20:16 DEBUG AccountService:143 - Displayed account at id: 5
+2020-11-11 01:20:18 INFO  AccountService:89 - Withdrawing $20.05 from account at the id 5 this changes the balance from $80.0 to $59.95
+2020-11-11 01:20:24 DEBUG Driver:377 - User entered withdraw
+2020-11-11 01:20:24 DEBUG Driver:379 - An admin is withrawing from an account.
+2020-11-11 01:20:27 DEBUG AccountService:143 - Displayed account at id: 5
+2020-11-11 01:20:33 INFO  AccountService:89 - Withdrawing $50.99 from account at the id 5 this changes the balance from $59.95 to $8.96
+2020-11-11 01:38:37 INFO  Driver:56 - User root has been logged in.
+2020-11-11 01:38:39 DEBUG Driver:168 - User displayed all accounts.
+2020-11-11 01:38:43 DEBUG Driver:320 - User entered deposit
+2020-11-11 01:38:43 DEBUG Driver:322 - An admin is depositing into an account.
+2020-11-11 01:38:46 INFO  AccountService:66 - Depositing $100.0 into account at the id 2 this changes the balance from $0.0 to $100.0
+2020-11-11 01:38:51 DEBUG Driver:180 - User used unknown command.
+2020-11-11 01:39:23 INFO  Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 01:39:27 INFO  Driver:56 - User root has been logged in.
+2020-11-11 01:39:33 DEBUG Driver:443 - User entered transfer
+2020-11-11 01:39:33 DEBUG Driver:445 - An admin is transferring funds between accounts.
+2020-11-11 01:44:41 DEBUG AccountService:143 - Displayed account at id: 2
+2020-11-11 01:44:41 DEBUG AccountService:143 - Displayed account at id: 1
+2020-11-11 01:47:20 INFO  AccountService:102 - Begining transfer of $50.0 from $2 to $1
+2020-11-11 01:47:21 INFO  AccountService:89 - Withdrawing $50.0 from account at the id 2 this changes the balance from $100.0 to $50.0
+2020-11-11 01:47:21 INFO  AccountService:66 - Depositing $50.0 into account at the id 1 this changes the balance from $0.0 to $50.0
+2020-11-11 01:47:21 INFO  AccountService:105 - Transfer successful.
+2020-11-11 01:48:17 DEBUG Driver:171 - User displayed all accounts.
+2020-11-11 01:48:27 DEBUG Driver:217 - User entered view account.
+2020-11-11 01:48:32 DEBUG Driver:251 - User chose to view user accounts by id.
+2020-11-11 01:48:42 DEBUG Driver:165 - User displayed all users.

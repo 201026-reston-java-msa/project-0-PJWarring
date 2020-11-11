@@ -146,45 +146,13 @@ public class Driver {
 			}
 			break;
 		case "deposit":
-			log.debug("User entered deposit");
-			if (userAccessLevel == 3) {
-				log.debug("An admin is depositing into an account.");
-				String accountChosenStr = "";
-				while (!StringUtil.isInt(accountChosenStr)) {
-					System.out.print("Enter the id of the account you want to deposit into " + 
-							" (or type 'cancel' to cancel): ");
-					accountChosenStr = sc.nextLine();
-					if (accountChosenStr.equalsIgnoreCase("Cancel")) return true;
-				}
-				int accountChosen = Integer.parseInt(accountChosenStr);
-				double amount = -1;
-				while (amount <= 0) {
-					System.out.print("What amount would you like to deposit (must be greater than zero): ");
-					if (sc.hasNextDouble()) amount = sc.nextDouble();
-				}
-				AccountService.deposit(accountChosen, amount);
-			} else if (userAccessLevel >= 1) {
-				log.debug("User is deposting into their own account - they have an access level of 1 or 2");
-				User user = userDao.getById(signedInUser.getId());
-				List<Account> accounts = user.getAccounts();
-				List<String> validInput = new ArrayList<>();
-				for (Account a : accounts) validInput.add(Integer.toString(a.getId()));
-				AccountService.displayAccountsByUserId(signedInUser.getId());
-				String accountChosenStr = "";
-				while (!StringUtil.isValidInput(accountChosenStr, validInput, true) || accountChosenStr.equalsIgnoreCase("Cancel")) {
-					System.out.print("Enter the id of the account you want to deposit into " + 
-							" (or type 'cancel' to cancel): ");
-					accountChosenStr = sc.nextLine();
-				}
-				if (accountChosenStr.equalsIgnoreCase("Cancel")) break;
-				int accountChosen = Integer.parseInt(accountChosenStr);
-				double amount = -1;
-				while (amount <= 0) {
-					System.out.print("What amount would you like to deposit (must be greater than zero): ");
-					if (sc.hasNextDouble()) amount = sc.nextDouble();
-				}
-				AccountService.deposit(accountChosen, amount);
-			}
+			deposit();
+			break;
+		case "withdraw":
+			withdraw();
+			break;
+		case "transfer":
+			transfer();
 			break;
 		case "view user":
 			viewUser();
@@ -344,6 +312,243 @@ public class Driver {
 		} else if (userAccessLevel == 1) {
 			log.debug("User displayed their own info - had an access level of 1.");
 			UserService.displayUser(signedInUser.getUsername());
+		}
+	}
+	
+	public static void deposit() {
+		Scanner sc = new Scanner(System.in);
+		User signedInUser = LoginService.getSignedInUser();
+		int userAccessLevel = LoginService.getUserAccessLevel();
+		UserDaoImpl userDao = new UserDaoImpl();
+		log.debug("User entered deposit");
+		if (userAccessLevel == 3) {
+			log.debug("An admin is depositing into an account.");
+			String accountChosenStr = "";
+			while (!StringUtil.isInt(accountChosenStr)) {
+				System.out.print("Enter the id of the account you want to deposit into " + 
+						" (or type 'cancel' to cancel): ");
+				accountChosenStr = sc.nextLine();
+				if (accountChosenStr.equalsIgnoreCase("Cancel")) return;
+			}
+			int accountChosen = Integer.parseInt(accountChosenStr);
+			if (!AccountService.isOpenAccount(accountChosen)) {
+				log.debug("Deposit command failed - user entered an account that isn't open.");
+				System.out.println("You can not deposit into an account that isn't open.");
+				return;
+			}
+			double amount = -1;
+			while (amount <= 0) {
+				System.out.print("What amount would you like to deposit (must be greater than zero): ");
+				if (sc.hasNextDouble()) amount = sc.nextDouble();
+			}
+			amount = Math.floor(amount * 100) / 100; //remove all values after the second decimal place
+			AccountService.deposit(accountChosen, amount);
+		} else if (userAccessLevel >= 1) {
+			log.debug("User is deposting into their own accounts - they have an access level of 1 or 2");
+			User user = userDao.getById(signedInUser.getId());
+			List<Account> accounts = user.getAccounts();
+			List<String> validInput = new ArrayList<>();
+			for (Account a : accounts) validInput.add(Integer.toString(a.getId()));
+			AccountService.displayAccountsByUserId(signedInUser.getId());
+			String accountChosenStr = "";
+			while (!StringUtil.isValidInput(accountChosenStr, validInput, true)) {
+				System.out.print("Enter the id of the account you want to deposit into " + 
+						" (or type 'cancel' to cancel): ");
+				accountChosenStr = sc.nextLine();
+				if (accountChosenStr.equalsIgnoreCase("Cancel")) return;
+			}
+			
+			int accountChosen = Integer.parseInt(accountChosenStr);
+			if (!AccountService.isOpenAccount(accountChosen)) {
+				log.debug("Deposit command failed - user entered an account that isn't open.");
+				System.out.println("You can not deposit into an account that isn't open.");
+				return;
+			}
+			double amount = -1;
+			while (amount <= 0) {
+				System.out.print("What amount would you like to deposit (must be greater than zero): ");
+				if (sc.hasNextDouble()) amount = sc.nextDouble();
+			}
+			amount = Math.floor(amount * 100) / 100; //remove all values after the second decimal place
+			AccountService.deposit(accountChosen, amount);
+		}
+	}
+	
+	public static void withdraw() {
+		Scanner sc = new Scanner(System.in);
+		User signedInUser = LoginService.getSignedInUser();
+		int userAccessLevel = LoginService.getUserAccessLevel();
+		UserDaoImpl userDao = new UserDaoImpl();
+		log.debug("User entered withdraw");
+		if (userAccessLevel == 3) {
+			log.debug("An admin is withdrawing from an account.");
+			String accountChosenStr = "";
+			while (!StringUtil.isInt(accountChosenStr)) {
+				System.out.print("Enter the id of the account you want to withdraw from " + 
+						" (or type 'cancel' to cancel): ");
+				accountChosenStr = sc.nextLine();
+				if (accountChosenStr.equalsIgnoreCase("Cancel")) return;
+			}
+			int accountChosen = Integer.parseInt(accountChosenStr);
+			if (!AccountService.isOpenAccount(accountChosen)) {
+				log.debug("Withdraw command failed - user entered an account that isn't open.");
+				System.out.println("You can not withdraw from an account that isn't open.");
+				return;
+			}
+			AccountService.displayAccount(accountChosen);
+			double amount = -1;
+			while (!(amount >= 0 && AccountService.isValidWithdrawAmount(accountChosen, amount))) {
+				System.out.print("What amount would you like to withdraw (must be greater than zero, and can not result in an overdraft): ");
+				if (sc.hasNextDouble()) amount = sc.nextDouble();
+			}
+			amount = Math.floor(amount * 100) / 100; //remove all values after the second decimal place
+			AccountService.withdraw(accountChosen, amount);
+			
+		} else if (userAccessLevel >= 1) {
+			log.debug("User is withdrawing from their own accounts - they have an access level of 1 or 2");
+			User user = userDao.getById(signedInUser.getId());
+			List<Account> accounts = user.getAccounts();
+			List<String> validInput = new ArrayList<>();
+			for (Account a : accounts) validInput.add(Integer.toString(a.getId()));
+			AccountService.displayAccountsByUserId(signedInUser.getId());
+			String accountChosenStr = "";
+			while (!StringUtil.isValidInput(accountChosenStr, validInput, true)) {
+				System.out.print("Enter the id of the account you want to withdraw from " + 
+						" (or type 'cancel' to cancel): ");
+				accountChosenStr = sc.nextLine();
+				if (accountChosenStr.equalsIgnoreCase("Cancel")) return;
+			}
+			
+			int accountChosen = Integer.parseInt(accountChosenStr);
+			if (!AccountService.isOpenAccount(accountChosen)) {
+				log.debug("Withdraw command failed - user entered an account that isn't open.");
+				System.out.println("You can not withdraw from an account that isn't open.");
+				return;
+			}
+			if (!AccountService.hasFunds(accountChosen)) {
+				log.debug("Transfer command failed - user entered a sender account that doesn't have funds.");
+				System.out.println("That account doesn't have funds.");
+				return;
+			}
+			
+			AccountService.displayAccount(accountChosen);
+			double amount = -1;
+			while (!(amount >= 0 && AccountService.isValidWithdrawAmount(accountChosen, amount))) {
+				System.out.print("What amount would you like to withdraw (must be greater than zero, and can not result in an overdraft): ");
+				if (sc.hasNextDouble()) amount = sc.nextDouble();
+			}
+			amount = Math.floor(amount * 100) / 100; //remove all values after the second decimal place
+			AccountService.withdraw(accountChosen, amount);
+		}
+	}
+	
+	public static void transfer() {
+		Scanner sc = new Scanner(System.in);
+		User signedInUser = LoginService.getSignedInUser();
+		int userAccessLevel = LoginService.getUserAccessLevel();
+		UserDaoImpl userDao = new UserDaoImpl();
+		log.debug("User entered transfer");
+		if (userAccessLevel == 3) {
+			log.debug("An admin is transferring funds between accounts.");
+			
+			String senderAccountStr = "";
+			while (!StringUtil.isInt(senderAccountStr)) {
+				System.out.print("Enter the id of the account you want to withdraw from " + 
+						" (or type 'cancel' to cancel): ");
+				senderAccountStr = sc.nextLine();
+				if (senderAccountStr.equalsIgnoreCase("Cancel")) return;
+			}
+			int senderAccountId = Integer.parseInt(senderAccountStr);
+			if (!AccountService.isOpenAccount(senderAccountId)) {
+				log.debug("Transfer command failed - user entered a sender account that isn't open.");
+				System.out.println("That account isn't open.");
+				return;
+			}
+			if (!AccountService.hasFunds(senderAccountId)) {
+				log.debug("Transfer command failed - user entered a sender account that doesn't have funds.");
+				System.out.println("That account doesn't have funds.");
+				return;
+			}
+			
+			String recieverAccountStr = "";
+			while (!StringUtil.isInt(recieverAccountStr)) {
+				System.out.print("Enter the id of the account you want to deposit into " + 
+						" (or type 'cancel' to cancel): ");
+				recieverAccountStr = sc.nextLine();
+				if (recieverAccountStr.equalsIgnoreCase("Cancel")) return;
+			}
+			int recieverAccountId = Integer.parseInt(recieverAccountStr);
+			if (!AccountService.isOpenAccount(recieverAccountId)) {
+				log.debug("Transfer command failed - user entered a reciever account that isn't open.");
+				System.out.println("That account isn't open.");
+				return;
+			}
+			
+			System.out.print("Sender Account: ");
+			AccountService.displayAccount(senderAccountId);
+			System.out.print("Reciever Account: ");
+			AccountService.displayAccount(recieverAccountId);
+			
+			double amount = -1;
+			while (!(amount >= 0 && AccountService.isValidWithdrawAmount(senderAccountId, amount))) {
+				System.out.print("What amount would you like to transfer (must be greater than zero, and can not result in an overdraft): ");
+				if (sc.hasNextDouble()) amount = sc.nextDouble();
+			}
+			amount = Math.floor(amount * 100) / 100; //remove all values after the second decimal place
+			AccountService.transfer(senderAccountId, recieverAccountId, amount);
+		} else if (userAccessLevel >= 1) {
+			log.debug("User is transfering from their own account - they have an access level of 1 or 2");
+			User user = userDao.getById(signedInUser.getId());
+			
+			List<Account> accounts = user.getAccounts();
+			List<String> validInput = new ArrayList<>();
+			for (Account a : accounts) validInput.add(Integer.toString(a.getId()));
+			AccountService.displayAccountsByUserId(signedInUser.getId());
+			String senderAccountStr = "";
+			while (!StringUtil.isValidInput(senderAccountStr, validInput, true)) {
+				System.out.print("Enter the id of the account you want to withdraw from " + 
+						" (or type 'cancel' to cancel): ");
+				senderAccountStr = sc.nextLine();
+				if (senderAccountStr.equalsIgnoreCase("Cancel")) return;
+			}
+			int senderAccountId = Integer.parseInt(senderAccountStr);
+			if (!AccountService.isOpenAccount(senderAccountId)) {
+				log.debug("Transfer command failed - user entered a sender account that isn't open.");
+				System.out.println("That account isn't open.");
+				return;
+			}
+			if (!AccountService.hasFunds(senderAccountId)) {
+				log.debug("Transfer command failed - user entered a sender account that doesn't have funds.");
+				System.out.println("That account doesn't have funds.");
+				return;
+			}
+			
+			String recieverAccountStr = "";
+			while (!StringUtil.isValidInput(recieverAccountStr, validInput, true)) {
+				System.out.print("Enter the id of the account you want to deposit into " + 
+						" (or type 'cancel' to cancel): ");
+				recieverAccountStr = sc.nextLine();
+				if (recieverAccountStr.equalsIgnoreCase("Cancel")) return;
+			}
+			int recieverAccountId = Integer.parseInt(recieverAccountStr);
+			if (!AccountService.isOpenAccount(recieverAccountId)) {
+				log.debug("Transfer command failed - user entered a reciever account that isn't open.");
+				System.out.println("That account isn't open.");
+				return;
+			}
+			
+			System.out.print("Sender Account: ");
+			AccountService.displayAccount(senderAccountId);
+			System.out.print("Reciever Account: ");
+			AccountService.displayAccount(recieverAccountId);
+			
+			double amount = -1;
+			while (!(amount >= 0 && AccountService.isValidWithdrawAmount(senderAccountId, amount))) {
+				System.out.print("What amount would you like to transfer (must be greater than zero, and can not result in an overdraft): ");
+				if (sc.hasNextDouble()) amount = sc.nextDouble();
+			}
+			amount = Math.floor(amount * 100) / 100; //remove all values after the second decimal place
+			AccountService.transfer(senderAccountId, recieverAccountId, amount);
 		}
 	}
 }

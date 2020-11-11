@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -10,8 +11,8 @@ public class UserAccountDaoImpl {
 	//just create and delete
 	
 	public boolean create(int userId, int accountId) {
-		try {
-			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 					"insert into project0.users_accounts (userid, accountid) "
 					+ "values (?, ?)");
 			ps.setInt(1, userId);
@@ -24,12 +25,12 @@ public class UserAccountDaoImpl {
 			//log the warning
 			e.printStackTrace();
 		}
-		return false; //no user was created
+		return false; //no user_account was created
 	}
 	
 	public boolean deleteByUser(int userId) {
-		try {
-			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 					"delete from project0.users_accounts where userid = ?");
 			ps.setInt(1, userId);
 			
@@ -40,12 +41,12 @@ public class UserAccountDaoImpl {
 			//log the warning
 			e.printStackTrace();
 		}
-		return false; //no user was created
+		return false;
 	}
 	
 	public boolean deleteByAccount(int accountId) {
-		try {
-			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 					"delete from project0.users_accounts where userid = ?");
 			ps.setInt(1, accountId);
 			
@@ -56,7 +57,7 @@ public class UserAccountDaoImpl {
 			//log the warning
 			e.printStackTrace();
 		}
-		return false; //no user was created
+		return false;
 	}
 
 }

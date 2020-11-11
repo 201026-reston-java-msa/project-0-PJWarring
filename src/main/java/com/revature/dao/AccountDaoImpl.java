@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +20,8 @@ public class AccountDaoImpl implements GenericDao<Account>{
 
 	@Override
 	public int create(Account t) {
-		try {
-			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 					"insert into project0.accounts (balance, status, type) "
 					+ "values (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setDouble(1, t.getBalance());
@@ -45,8 +46,8 @@ public class AccountDaoImpl implements GenericDao<Account>{
 
 	@Override
 	public Account getById(int id) {
-		try {
-			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 					"select * from project0.accounts where id = ?;");
 			ps.setInt(1, id);
 			
@@ -67,8 +68,8 @@ public class AccountDaoImpl implements GenericDao<Account>{
 	}
 	
 	public List<Account> getByStatus(String status) {
-		try {
-			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 					"select * from project0.accounts where status=? order by id;");
 			ps.setString(1, status);
 			
@@ -92,8 +93,8 @@ public class AccountDaoImpl implements GenericDao<Account>{
 
 	@Override
 	public boolean update(Account t) {
-		try {
-			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement("UPDATE project0.accounts"
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement("UPDATE project0.accounts"
 					+ " SET balance = ?, status = ?, type = ?"
 					+ " WHERE id = ?;");
 			
@@ -116,14 +117,25 @@ public class AccountDaoImpl implements GenericDao<Account>{
 
 	@Override
 	public boolean delete(Account t) {
-		// TODO Auto-generated method stub
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
+					"delete from project0.accounts where account.id = ?");
+			ps.setInt(1, t.getId());
+			
+			ps.executeUpdate();
+			
+			return true;
+		} catch (SQLException e) {
+			//log the warning
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public List<Account> getAll() {
-		try {
-			PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(
+		try (Connection conn = ConnectionFactory.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(
 					"select * from project0.accounts order by id;");
 			
 			ResultSet rs = ps.executeQuery();
@@ -141,6 +153,7 @@ public class AccountDaoImpl implements GenericDao<Account>{
 		} catch (SQLException e) {
 			log.warn("SQLException " + e);
 		}
+		
 		return null; //no accounts were found
 	}
 
