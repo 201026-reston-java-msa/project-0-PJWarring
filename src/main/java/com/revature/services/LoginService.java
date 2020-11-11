@@ -16,7 +16,7 @@ public class LoginService {
 		UserDaoImpl userDao = new UserDaoImpl();
 		//get user by username, compare password, set password to null
 		User tempUser = userDao.getByUsername(username);
-		if (tempUser != null && tempUser.getPassword() != null && tempUser.getPassword().equals(password)) { //user credentials are valid
+		if (tempUser.getId() != 0 && tempUser.getPassword() != "" && tempUser.getPassword().equals(password)) { //user credentials are valid
 			//sets users password and accounts to null for privacy reasons
 			tempUser.setPassword("****");
 			tempUser.setAccounts(null);

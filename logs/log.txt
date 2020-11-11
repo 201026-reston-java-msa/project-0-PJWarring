@@ -369,3 +369,116 @@ org.postgresql.util.PSQLException: FATAL: sorry, too many clients already
 2020-11-11 03:40:10 DEBUG Driver:174 - User displayed all users.
 2020-11-11 03:40:10 DEBUG UserService:51 - Displayed all users.
 2020-11-11 03:49:36 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:50:55 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:51:17 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:51:38 INFO  UserService:48 - Signed up new user: demoUser1
+2020-11-11 03:51:38 INFO  Driver:76 - User has signed up.
+2020-11-11 03:51:48 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:52:36 INFO  UserService:48 - Signed up new user: demoUser2
+2020-11-11 03:52:36 INFO  Driver:76 - User has signed up.
+2020-11-11 03:54:34 INFO  UserService:48 - Signed up new user: testuser2
+2020-11-11 03:54:34 INFO  Driver:76 - User has signed up.
+2020-11-11 03:54:43 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:55:45 DEBUG Driver:192 - User used unknown command.
+2020-11-11 03:55:57 INFO  UserService:48 - Signed up new user: demoUser1
+2020-11-11 03:55:57 INFO  Driver:76 - User has signed up.
+2020-11-11 03:56:02 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:57:36 INFO  UserService:48 - Signed up new user: demoUser1
+2020-11-11 03:57:37 WARN  UserDaoImpl:45 - SQLException org.postgresql.util.PSQLException: ERROR: null value in column "password" violates not-null constraint
+  Detail: Failing row contains (5, demoUser1, null, login, login, login, Standard).
+2020-11-11 03:57:37 DEBUG Driver:79 - Sign up failed.
+2020-11-11 03:59:26 INFO  UserService:46 - Signed up new user: login
+2020-11-11 03:59:26 WARN  UserDaoImpl:46 - SQLException org.postgresql.util.PSQLException: ERROR: syntax error at or near "'password'"
+  Position: 39
+2020-11-11 03:59:26 DEBUG Driver:79 - Sign up failed.
+2020-11-11 04:01:39 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 04:02:00 INFO  UserService:46 - Signed up new user: demoUser1
+2020-11-11 04:02:00 WARN  UserDaoImpl:45 - SQLException org.postgresql.util.PSQLException: ERROR: syntax error at or near "'password'"
+  Position: 39
+2020-11-11 04:02:00 DEBUG Driver:79 - Sign up failed.
+2020-11-11 04:02:47 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 04:03:29 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 04:03:49 INFO  UserService:46 - Signed up new user: demoUser1
+2020-11-11 04:03:49 INFO  Driver:76 - User has signed up.
+2020-11-11 04:03:58 INFO  LoginService:24 - Signing in user: demoUser1
+2020-11-11 04:03:58 INFO  Driver:56 - User demoUser1 has been logged in.
+2020-11-11 04:04:06 DEBUG Driver:247 - User entered view account.
+2020-11-11 04:04:06 DEBUG Driver:303 - User displayed their own account information - had an access level of 1.
+2020-11-11 04:04:06 DEBUG AccountService:161 - Displayed accounts of user: demoUser1
+2020-11-11 04:07:12 INFO  LoginService:24 - Signing in user: demoUser1
+2020-11-11 04:07:12 INFO  Driver:56 - User demoUser1 has been logged in.
+2020-11-11 04:07:17 DEBUG Driver:247 - User entered view account.
+2020-11-11 04:07:17 DEBUG Driver:303 - User displayed their own account information - had an access level of 1.
+2020-11-11 04:07:17 DEBUG AccountService:161 - Displayed accounts of user: demoUser1
+2020-11-11 04:07:17 WARN  Driver:307 - Null pointer exception - user does not have any accounts.
+2020-11-11 04:07:30 DEBUG Driver:86 - User is creating an account.
+2020-11-11 04:07:32 DEBUG AccountService:47 - User is creating a savings account.
+2020-11-11 04:07:32 INFO  Driver:88 - User has made a new account.
+2020-11-11 04:07:46 DEBUG Driver:247 - User entered view account.
+2020-11-11 04:07:46 DEBUG Driver:303 - User displayed their own account information - had an access level of 1.
+2020-11-11 04:07:46 DEBUG AccountService:161 - Displayed accounts of user: demoUser1
+2020-11-11 04:08:01 DEBUG Driver:358 - User entered deposit
+2020-11-11 04:08:01 DEBUG Driver:382 - User is deposting into their own accounts - they have an access level of 1 or 2
+2020-11-11 04:08:01 DEBUG AccountService:170 - Displayed accounts of user id: 6
+2020-11-11 04:08:05 DEBUG Driver:398 - Deposit command failed - user entered an account that isn't open.
+2020-11-11 04:08:11 INFO  Driver:69 - User logged out.
+2020-11-11 04:08:17 INFO  LoginService:24 - Signing in user: root
+2020-11-11 04:08:17 INFO  Driver:56 - User root has been logged in.
+2020-11-11 04:08:24 DEBUG Driver:180 - User displayed all accounts.
+2020-11-11 04:08:24 DEBUG AccountService:177 - Displayed all accounts.
+2020-11-11 04:08:33 DEBUG Driver:122 - User is reviewing pending accounts.
+2020-11-11 04:08:54 INFO  Driver:139 - User opened account at id 4
+2020-11-11 04:09:00 DEBUG Driver:180 - User displayed all accounts.
+2020-11-11 04:09:00 DEBUG AccountService:177 - Displayed all accounts.
+2020-11-11 04:09:08 DEBUG Driver:358 - User entered deposit
+2020-11-11 04:09:08 DEBUG Driver:360 - An admin is depositing into an account.
+2020-11-11 04:09:14 INFO  AccountService:68 - Depositing $100.0 into account at the id 4 this changes the balance from $0.0 to $100.0
+2020-11-11 04:09:18 DEBUG Driver:417 - User entered withdraw
+2020-11-11 04:09:18 DEBUG Driver:419 - An admin is withdrawing from an account.
+2020-11-11 04:09:21 DEBUG Driver:429 - Withdraw command failed - user entered an account that isn't open.
+2020-11-11 04:09:30 DEBUG Driver:417 - User entered withdraw
+2020-11-11 04:09:30 DEBUG Driver:419 - An admin is withdrawing from an account.
+2020-11-11 04:09:31 DEBUG AccountService:150 - Displayed account at id: 4
+2020-11-11 04:09:34 INFO  AccountService:91 - Withdrawing $50.0 from account at the id 4 this changes the balance from $100.0 to $50.0
+2020-11-11 04:09:39 DEBUG Driver:180 - User displayed all accounts.
+2020-11-11 04:09:39 DEBUG AccountService:177 - Displayed all accounts.
+2020-11-11 04:12:04 DEBUG Driver:485 - User entered transfer
+2020-11-11 04:12:04 DEBUG Driver:487 - An admin is transferring funds between accounts.
+2020-11-11 04:12:09 DEBUG AccountService:150 - Displayed account at id: 4
+2020-11-11 04:12:09 DEBUG AccountService:150 - Displayed account at id: 1
+2020-11-11 04:12:16 INFO  AccountService:104 - Begining transfer of $25.0 from id 4 to id 1
+2020-11-11 04:12:16 INFO  AccountService:91 - Withdrawing $25.0 from account at the id 4 this changes the balance from $50.0 to $25.0
+2020-11-11 04:12:16 INFO  AccountService:68 - Depositing $25.0 into account at the id 1 this changes the balance from $0.0 to $25.0
+2020-11-11 04:12:16 INFO  AccountService:107 - Transfer successful.
+2020-11-11 04:12:20 DEBUG Driver:180 - User displayed all accounts.
+2020-11-11 04:12:20 DEBUG AccountService:177 - Displayed all accounts.
+2020-11-11 04:12:26 INFO  Driver:69 - User logged out.
+2020-11-11 04:12:34 INFO  LoginService:24 - Signing in user: locjc
+2020-11-11 04:12:34 INFO  Driver:56 - User locjc has been logged in.
+2020-11-11 04:12:35 DEBUG Driver:192 - User used unknown command.
+2020-11-11 04:12:42 DEBUG Driver:247 - User entered view account.
+2020-11-11 04:12:42 DEBUG Driver:303 - User displayed their own account information - had an access level of 1.
+2020-11-11 04:12:42 DEBUG AccountService:161 - Displayed accounts of user: 
+2020-11-11 04:12:48 DEBUG Driver:185 - User accessed help command.
+2020-11-11 04:12:57 INFO  Driver:69 - User logged out.
+2020-11-11 04:13:01 INFO  LoginService:24 - Signing in user: sdljfi
+2020-11-11 04:13:01 INFO  Driver:56 - User sdljfi has been logged in.
+2020-11-11 04:13:05 DEBUG Driver:192 - User used unknown command.
+2020-11-11 04:13:08 INFO  Driver:69 - User logged out.
+2020-11-11 04:13:12 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 04:14:04 INFO  LoginService:24 - Signing in user: hi
+2020-11-11 04:14:04 INFO  Driver:56 - User hi has been logged in.
+2020-11-11 04:14:50 DEBUG Driver:192 - User used unknown command.
+2020-11-11 04:14:53 INFO  LoginService:25 - Signing in user: hi
+2020-11-11 04:14:53 INFO  Driver:56 - User hi has been logged in.
+2020-11-11 04:15:27 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 04:15:31 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 04:15:36 DEBUG Driver:185 - User accessed help command.
+2020-11-11 04:15:42 INFO  LoginService:24 - Signing in user: root
+2020-11-11 04:15:42 INFO  Driver:56 - User root has been logged in.
+2020-11-11 04:15:43 DEBUG Driver:192 - User used unknown command.
+2020-11-11 04:15:44 DEBUG Driver:185 - User accessed help command.
+2020-11-11 04:15:49 INFO  Driver:69 - User logged out.
+2020-11-11 04:15:56 INFO  LoginService:24 - Signing in user: demoUser1
+2020-11-11 04:15:56 INFO  Driver:56 - User demoUser1 has been logged in.
+2020-11-11 04:15:57 DEBUG Driver:185 - User accessed help command.

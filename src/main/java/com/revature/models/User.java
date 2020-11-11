@@ -21,6 +21,7 @@ public class User {
 	public User(String username, String password, String firstName, String lastName, String email) {
 		this.id = 0; //this is preset to 0 because the database handles the id
 		this.username = username;
+		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;

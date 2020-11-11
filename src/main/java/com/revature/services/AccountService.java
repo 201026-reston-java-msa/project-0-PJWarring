@@ -67,6 +67,7 @@ public class AccountService {
 			double newBalance = account.getBalance() + amount;
 			log.info("Depositing $" + amount + " into account at the id " + accountid +
 					" this changes the balance from $" + account.getBalance() + " to $" + newBalance);
+			System.out.println("Deposit successful");
 			account.setBalance(newBalance);
 			return accountDao.update(account);
 		} else {
@@ -90,6 +91,7 @@ public class AccountService {
 			double newBalance = account.getBalance() - amount;
 			log.info("Withdrawing $" + amount + " from account at the id " + accountid +
 					" this changes the balance from $" + account.getBalance() + " to $" + newBalance);
+			System.out.println("Withdrawl successful");
 			account.setBalance(newBalance);
 			return accountDao.update(account);
 		} else {
@@ -105,20 +107,24 @@ public class AccountService {
 			if (withdraw(senderAccountId, amount)) {
 				if (deposit(recieverAccountId, amount)) {
 					log.info("Transfer successful.");
+					System.out.println("Transfer successful.");
 					return true;
 				} else {
 					log.info("Transfer failed."); //this dbg message is so simple because deposit should log its own failure states
 					log.debug("Transfer failed at deposit stage.");
+					System.out.println("Transfer failed.");
 					return false;
 				}
 			} else {
 				log.info("Transfer failed."); //this dbg message is so simple because withdraw should log its own failure states
 				log.debug("Transfer failed at withdraw stage.");
+				System.out.println("Transfer failed.");
 				return false;
 			}
 		} else {
 			log.debug("Can not transfer to or from accounts that are not open.");
 			System.out.println("You can not transfer to or from accounts that are not open.");
+			System.out.println("Transfer failed.");
 			return false;
 		}
 	}

@@ -32,8 +32,6 @@ public class UserService {
 			password = sc.nextLine();
 		}
 		
-		System.out.println(password);
-		
 		System.out.print("Enter First Name: ");
 		String firstName = sc.nextLine();
 		
@@ -46,7 +44,8 @@ public class UserService {
 		//id is handled by the database, accounts isnt relavent to creating a user
 		//and role is automatically set to 'Standard' in the user constructor
 		log.info("Signed up new user: " + username);
-		return userDao.create(new User(username, password, firstName, lastName, email)) != 0;
+		User user = new User(username, password, firstName, lastName, email);
+		return userDao.create(user) != 0;
 	}
 	
 	public static void displayAll() {

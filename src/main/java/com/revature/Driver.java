@@ -301,7 +301,12 @@ public class Driver {
 			}
 		} else if (userAccessLevel == 1) {
 			log.debug("User displayed their own account information - had an access level of 1.");
-			AccountService.displayAccountsByUsername(signedInUser.getUsername());
+			try {
+				AccountService.displayAccountsByUsername(signedInUser.getUsername());
+			} catch (NullPointerException e) {
+				log.warn("Null pointer exception - user does not have any accounts.");
+				System.out.println("You don't have any accounts.");
+			}
 		}
 	}
 	
