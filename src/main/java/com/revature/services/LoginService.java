@@ -1,11 +1,14 @@
 package com.revature.services;
 
+import org.apache.log4j.Logger;
+
 import com.revature.dao.UserDaoImpl;
 import com.revature.models.User;
 
 public class LoginService {
 
 	private static User signedInUser = null;
+	private static Logger log = Logger.getLogger(LoginService.class);
 	
 	public static boolean login(String username, String password) {
 		//if username/password is valid, set signedInUser, return true
@@ -15,9 +18,10 @@ public class LoginService {
 		User tempUser = userDao.getByUsername(username);
 		if (tempUser != null && tempUser.getPassword() != null && tempUser.getPassword().equals(password)) { //user credentials are valid
 			//sets users password and accounts to null for privacy reasons
-			tempUser.setPassword("");
+			tempUser.setPassword("****");
 			tempUser.setAccounts(null);
 			
+			log.info("Signing in user: " + username);
 			signedInUser = tempUser;
 			return true;
 		} else { //user credentials are invalid

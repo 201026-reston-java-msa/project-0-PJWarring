@@ -56,34 +56,41 @@ public class Driver {
 					log.info("User " + username + " has been logged in.");
 					System.out.println("You have successfully logged in.");
 				} else {
-					log.info("Could not log in user - invalid username or password.");
+					log.debug("Could not log in user - invalid username or password.");
 					System.out.println("Invalid username or password.");
 				}
 			} else {
-				log.info("Could not log in user - user already logged in.");
+				log.debug("Could not log in user - user already logged in.");
 				System.out.println("You are already logged in.");
 			}
 			break;
 		case "logout":		//logout
-			log.info("User logged out.");
-			LoginService.logout();
-			break;
+			if (userAccessLevel > 0) {
+				log.info("User logged out.");
+				LoginService.logout();
+				break;
+			}
 		case "signup":		//signup
-			if (UserService.signup()) {
-				log.info("User has signed up.");
-				System.out.println("Sign up successful.");
-			} else {
-				log.info("Sign up failed.");
-				System.out.println("Sign up failed.");
+			if (userAccessLevel == 0) {
+				if (UserService.signup()) {
+					log.info("User has signed up.");
+					System.out.println("Sign up successful.");
+				} else {
+					log.debug("Sign up failed.");
+					System.out.println("Sign up failed.");
+				}
 			}
 			break;
 		case "create account":
-			if (AccountService.createAccount()) {
-				log.info("User has made a new account.");
-				System.out.println("You have made a new account.");
-			} else {
-				log.info("Create account failed.");
-				System.out.println("Account creation failed.");
+			if (userAccessLevel >= 1) {
+				log.debug("User is creating an account.");
+				if (AccountService.createAccount()) {
+					log.info("User has made a new account.");
+					System.out.println("You have made a new account.");
+				} else {
+					log.debug("Create account failed.");
+					System.out.println("Account creation failed.");
+				}
 			}
 			break;
 		case "close account":
@@ -117,7 +124,7 @@ public class Driver {
 				String optionChosen;
 				for (Account a : pendingAccounts) {
 					User user = userDao.getByAccountId(a.getId());
-					user.setPassword("");
+					user.setPassword("****");
 					System.out.println(user);
 					System.out.println("The pending account is: " + a);
 					optionChosen = "";
@@ -129,10 +136,12 @@ public class Driver {
 					}
 					switch (optionChosen.toLowerCase()) {
 					case "open":
+						log.info("User opened account at id " + a.getId());
 						a.setStatus("Open");
 						accountDao.update(a);
 						break;
 					case "deny":
+						log.info("User denied account at id " + a.getId());
 						a.setStatus("Denied");
 						accountDao.update(a);
 						break;
@@ -177,7 +186,7 @@ public class Driver {
 			printHelp();
 			break;
 		case "q":			//quit
-			log.debug("User quit the program.");
+			log.info("User quit the program.");
 			return false;
 		default:			//default
 			log.debug("User used unknown command.");
@@ -200,12 +209,33 @@ public class Driver {
 		} else {
 			if (userAccessLevel >= 1) {
 				//Standard user commands
+				System.out.println("Logout: logout of the application.");
+				System.out.println("Create Account: create a new account for yourself.");
+			}
+			if (userAccessLevel == 1) {
+				System.out.println("View User: display your own account information.");
+				System.out.println("View Account: display your accounts.");
 			}
 			if (userAccessLevel >= 2) {
 				//Employee commands
+				System.out.println("Review Pending Accounts: step through pending account " +
+						"applications and approve/deny them.");
+				System.out.println("View All Users: display a list of all users in the database.");
+				System.out.println("View All Accounts: display a list of all accounts in the database.");
+				System.out.println("View User: view data for any user.");
+				System.out.println("View Account: display data for any account.");
+			}
+			if (userAccessLevel == 1 || userAccessLevel == 2) {
+				System.out.println("Deposit: add money to one of your accounts.");
+				System.out.println("Withdraw: subtract money from one of your accounts.");
+				System.out.println("Transfer: move money from one of your accounts to any other account.");
 			}
 			if (userAccessLevel >= 3) {
 				//Admin commands
+				System.out.println("Close Account: close an account.");
+				System.out.println("Deposit: add money to any account.");
+				System.out.println("Withdraw: subtract money from any account.");
+				System.out.println("Transfer: move money from any account to any other account.");
 			}
 		}
 	}

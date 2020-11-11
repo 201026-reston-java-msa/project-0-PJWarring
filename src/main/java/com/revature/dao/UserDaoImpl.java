@@ -23,7 +23,7 @@ public class UserDaoImpl implements GenericDao<User> {
 		try (Connection conn = ConnectionFactory.getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(
 					"insert into project0.users (username, password, first_name, last_name, email, role) "
-					+ "values (?, ?, ?, ?, ?, ?)");
+					+ "values (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, t.getUsername());
 			ps.setString(2, t.getPassword());
 			ps.setString(3, t.getFirstName());
@@ -33,10 +33,16 @@ public class UserDaoImpl implements GenericDao<User> {
 			
 			ps.executeUpdate();
 			
-			return 1;
+			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                return generatedKeys.getInt(1);
+	            } else {
+	            	log.warn("Creating user failed - no keys found.");
+	                throw new SQLException("Creating user failed - no keys found.");
+	            }
+	        }
 		} catch (SQLException e) {
-			//log the warning
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		return 0; //no user was created
 	}
@@ -77,8 +83,7 @@ public class UserDaoImpl implements GenericDao<User> {
 			user.setAccounts(accounts);
 			return user;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		
 		// There were 0 records returned
@@ -120,8 +125,7 @@ public class UserDaoImpl implements GenericDao<User> {
 			user.setAccounts(accounts);
 			return user;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		
 		// There were 0 records returned
@@ -163,8 +167,7 @@ public class UserDaoImpl implements GenericDao<User> {
 			user.setAccounts(accounts);
 			return user;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		
 		// There were 0 records returned
@@ -193,8 +196,7 @@ public class UserDaoImpl implements GenericDao<User> {
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		return false;
 	}
@@ -210,8 +212,7 @@ public class UserDaoImpl implements GenericDao<User> {
 			
 			return true;
 		} catch (SQLException e) {
-			//log the warning
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		return false;
 	}
@@ -262,7 +263,7 @@ public class UserDaoImpl implements GenericDao<User> {
 			}	
 			return users;
 		} catch (SQLException e) {
-			//log crash here
+			log.warn("SQLException " + e);
 		}
 		return null; //no users found
 	}

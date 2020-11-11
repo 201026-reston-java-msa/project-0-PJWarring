@@ -41,8 +41,10 @@ public class AccountService {
 		}
 		
 		if (optionChosen.equalsIgnoreCase("1") || optionChosen.equalsIgnoreCase("Checking")) {
+			log.debug("User is creating a checking account.");
 			type = "Checking";
 		} else if (optionChosen.equalsIgnoreCase("2") || optionChosen.equalsIgnoreCase("Savings")) {
+			log.debug("User is creating a savings account.");
 			type = "Savings";
 		} else {
 			return false; //this should never happen because the program should only allow good input
@@ -156,6 +158,7 @@ public class AccountService {
 		UserDaoImpl userDao = new UserDaoImpl();
 		User user = userDao.getByUsername(username);
 		List<Account> accounts = user.getAccounts();
+		log.debug("Displayed accounts of user: " + username);
 		for (Account a : accounts) {
 			System.out.println(a);
 		}
@@ -164,12 +167,14 @@ public class AccountService {
 		UserDaoImpl userDao = new UserDaoImpl();
 		User user = userDao.getById(userid);
 		List<Account> accounts = user.getAccounts();
+		log.debug("Displayed accounts of user id: " + userid);
 		for (Account a : accounts) {
 			System.out.println(a);
 		}
 	}
 
 	public static void displayAll() {
+		log.debug("Displayed all accounts.");
 		AccountDaoImpl accountDao = new AccountDaoImpl();
 		List<Account> accountList = accountDao.getAll();
 		if (accountList == null) {System.out.println("No accounts found"); return;}

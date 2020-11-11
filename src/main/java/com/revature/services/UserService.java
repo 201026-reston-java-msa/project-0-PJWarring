@@ -32,6 +32,8 @@ public class UserService {
 			password = sc.nextLine();
 		}
 		
+		System.out.println(password);
+		
 		System.out.print("Enter First Name: ");
 		String firstName = sc.nextLine();
 		
@@ -43,16 +45,18 @@ public class UserService {
 		
 		//id is handled by the database, accounts isnt relavent to creating a user
 		//and role is automatically set to 'Standard' in the user constructor
+		log.info("Signed up new user: " + username);
 		return userDao.create(new User(username, password, firstName, lastName, email)) != 0;
 	}
 	
 	public static void displayAll() {
+		log.debug("Displayed all users.");
 		UserDaoImpl userDao = new UserDaoImpl();
 		List<User> userList = userDao.getAll();
 		if (userList == null) {System.out.println("No users found"); return;}
 		
 		for (User u : userList) {
-			u.setPassword("");
+			u.setPassword("****");
 			System.out.println(u);
 		}
 	}
@@ -61,7 +65,7 @@ public class UserService {
 		UserDaoImpl userDao = new UserDaoImpl();
 		User user = userDao.getById(userId);
 		if (user != null) {
-			user.setPassword("");
+			user.setPassword("****");
 			log.debug("Displayed user by id: " + userId);
 			System.out.println(user);
 		}
@@ -74,7 +78,7 @@ public class UserService {
 		UserDaoImpl userDao = new UserDaoImpl();
 		User user = userDao.getByUsername(username);
 		if (user != null) {
-			user.setPassword("");
+			user.setPassword("****");
 			log.debug("Displayed user by username: " + username);
 			System.out.println(user);
 		} else {
@@ -88,10 +92,10 @@ public class UserService {
 		List<User> userList = userDao.getAll();
 		if (userList == null) return false;
 		
-		if (username == "") return false;
+		if (username.equals("")) return false;
 		
 		for (User u : userList) {
-			if (u.getUsername() == username) return false;
+			if (u.getUsername().equals(username)) return false;
 		}
 		return true;
 	}

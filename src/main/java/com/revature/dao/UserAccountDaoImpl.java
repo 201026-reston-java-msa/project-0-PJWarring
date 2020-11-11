@@ -4,11 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import com.revature.utils.ConnectionFactory;
 
 public class UserAccountDaoImpl {
 	//this does not implement generic dao because it does not need all 4 CRUD operations
 	//just create and delete
+	
+	private static Logger log = Logger.getLogger(UserAccountDaoImpl.class);
 	
 	public boolean create(int userId, int accountId) {
 		try (Connection conn = ConnectionFactory.getConnection()) {
@@ -22,8 +26,7 @@ public class UserAccountDaoImpl {
 			
 			return true;
 		} catch (SQLException e) {
-			//log the warning
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		return false; //no user_account was created
 	}
@@ -38,8 +41,7 @@ public class UserAccountDaoImpl {
 			
 			return true;
 		} catch (SQLException e) {
-			//log the warning
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		return false;
 	}
@@ -54,8 +56,7 @@ public class UserAccountDaoImpl {
 			
 			return true;
 		} catch (SQLException e) {
-			//log the warning
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		return false;
 	}

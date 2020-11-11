@@ -109,8 +109,7 @@ public class AccountDaoImpl implements GenericDao<Account>{
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		return false;
 	}
@@ -126,8 +125,7 @@ public class AccountDaoImpl implements GenericDao<Account>{
 			
 			return true;
 		} catch (SQLException e) {
-			//log the warning
-			e.printStackTrace();
+			log.warn("SQLException " + e);
 		}
 		return false;
 	}

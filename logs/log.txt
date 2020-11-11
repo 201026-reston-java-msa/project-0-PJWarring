@@ -301,3 +301,71 @@ org.postgresql.util.PSQLException: FATAL: sorry, too many clients already
 2020-11-11 01:48:27 DEBUG Driver:217 - User entered view account.
 2020-11-11 01:48:32 DEBUG Driver:251 - User chose to view user accounts by id.
 2020-11-11 01:48:42 DEBUG Driver:165 - User displayed all users.
+2020-11-11 02:47:24 INFO  Driver:76 - User has signed up.
+2020-11-11 02:47:31 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 02:47:46 INFO  Driver:56 - User root has been logged in.
+2020-11-11 02:47:49 DEBUG Driver:174 - User displayed all users.
+2020-11-11 02:49:47 INFO  Driver:56 - User root has been logged in.
+2020-11-11 02:49:51 DEBUG Driver:86 - User is creating an account.
+2020-11-11 02:49:52 INFO  Driver:88 - User has made a new account.
+2020-11-11 02:50:00 DEBUG Driver:122 - User is reviewing pending accounts.
+2020-11-11 03:15:43 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:15:43 INFO  Driver:56 - User root has been logged in.
+2020-11-11 03:15:56 DEBUG Driver:192 - User used unknown command.
+2020-11-11 03:15:59 DEBUG Driver:192 - User used unknown command.
+2020-11-11 03:16:02 DEBUG Driver:174 - User displayed all users.
+2020-11-11 03:16:02 DEBUG UserService:51 - Displayed all users.
+2020-11-11 03:16:27 INFO  Driver:69 - User logged out.
+2020-11-11 03:17:58 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:17:58 INFO  Driver:56 - User root has been logged in.
+2020-11-11 03:18:04 DEBUG Driver:180 - User displayed all accounts.
+2020-11-11 03:18:04 DEBUG AccountService:177 - Displayed all accounts.
+2020-11-11 03:18:10 DEBUG Driver:86 - User is creating an account.
+2020-11-11 03:18:13 DEBUG AccountService:47 - User is creating a savings account.
+2020-11-11 03:18:13 INFO  Driver:88 - User has made a new account.
+2020-11-11 03:18:20 DEBUG Driver:122 - User is reviewing pending accounts.
+2020-11-11 03:18:27 INFO  Driver:139 - User opened account at id 6
+2020-11-11 03:18:34 INFO  Driver:139 - User opened account at id 7
+2020-11-11 03:18:39 DEBUG Driver:180 - User displayed all accounts.
+2020-11-11 03:18:39 DEBUG AccountService:177 - Displayed all accounts.
+2020-11-11 03:18:47 DEBUG Driver:86 - User is creating an account.
+2020-11-11 03:18:49 DEBUG AccountService:47 - User is creating a savings account.
+2020-11-11 03:18:50 INFO  Driver:88 - User has made a new account.
+2020-11-11 03:18:57 DEBUG Driver:122 - User is reviewing pending accounts.
+2020-11-11 03:19:02 INFO  Driver:144 - User denied account at id 8
+2020-11-11 03:26:42 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:29:49 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:30:41 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:30:41 INFO  Driver:58 - User root has been logged in.
+2020-11-11 03:31:08 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:32:38 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:33:01 INFO  UserService:46 - Signed up new user: RooT
+2020-11-11 03:33:01 INFO  Driver:76 - User has signed up.
+2020-11-11 03:33:08 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:33:15 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:33:15 INFO  Driver:56 - User root has been logged in.
+2020-11-11 03:33:18 DEBUG Driver:174 - User displayed all users.
+2020-11-11 03:33:18 DEBUG UserService:51 - Displayed all users.
+2020-11-11 03:33:21 DEBUG Driver:63 - Could not log in user - user already logged in.
+2020-11-11 03:33:25 DEBUG Driver:192 - User used unknown command.
+2020-11-11 03:33:27 DEBUG Driver:63 - Could not log in user - user already logged in.
+2020-11-11 03:33:29 INFO  Driver:69 - User logged out.
+2020-11-11 03:33:34 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:33:41 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:34:06 INFO  UserService:46 - Signed up new user: newUser1
+2020-11-11 03:34:06 INFO  Driver:76 - User has signed up.
+2020-11-11 03:34:20 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:34:39 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:37:36 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:37:36 INFO  Driver:56 - User root has been logged in.
+2020-11-11 03:37:39 DEBUG Driver:174 - User displayed all users.
+2020-11-11 03:37:39 DEBUG UserService:51 - Displayed all users.
+2020-11-11 03:37:52 INFO  Driver:69 - User logged out.
+2020-11-11 03:38:04 INFO  UserService:46 - Signed up new user: m1
+2020-11-11 03:38:04 INFO  Driver:76 - User has signed up.
+2020-11-11 03:38:10 DEBUG Driver:59 - Could not log in user - invalid username or password.
+2020-11-11 03:40:07 INFO  LoginService:24 - Signing in user: root
+2020-11-11 03:40:07 INFO  Driver:56 - User root has been logged in.
+2020-11-11 03:40:10 DEBUG Driver:174 - User displayed all users.
+2020-11-11 03:40:10 DEBUG UserService:51 - Displayed all users.
+2020-11-11 03:49:36 INFO  LoginService:24 - Signing in user: root
